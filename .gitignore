@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.myenv/
+myenv/
+
+# Environment variables
+.env
+*.env
+
+# macOS system files
+.DS_Store
+
+# VSCode settings
+.vscode/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Ignore database or data files (optional)
+*.sqlite3
+*.db
+
+# Ignore compiled binary files
+*.so
+*.o
+*.out
+*.exe
+
+# Ignore node_modules if using JS/TS
+node_modules/
