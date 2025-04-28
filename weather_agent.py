@@ -5,7 +5,7 @@ from openai import OpenAI
 import os
 load_dotenv()
 
-client = OpenAI()
+client = OpenAI(api_key="sk-8c9f4f64fd7646edb66fc361491c6385", base_url="https://api.deepseek.com")
 
 def query_db(sql):
     pass
@@ -85,7 +85,7 @@ while True:
 
     while True:
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="deepseek-chat",
             response_format={"type": "json_object"},
             messages=messages
         )

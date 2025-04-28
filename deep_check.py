@@ -1,5 +1,5 @@
 from openai import OpenAI
-client = OpenAI(api_key="sk-ef10c5ad9fa24b15a5ab4b19d265974c", base_url="https://api.deepseek.com")
+client = OpenAI(api_key="sk-7a1722a3d98845dda82ed7205e2a5f88", base_url="https://api.deepseek.com")
 
 # Round 1
 messages = [{"role": "user", "content": "9.11 and 9.8, which is greater?"}]
