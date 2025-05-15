@@ -6,7 +6,7 @@ from langchain_qdrant import QdrantVectorStore
 from qdrant_client import QdrantClient
 from openai import OpenAI
 
-api_key = "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"
+api_key = "API_KEY"
 
 file_path = Path(__file__).parent / "cheat_code.pdf"
 
