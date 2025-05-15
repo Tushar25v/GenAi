@@ -5,7 +5,7 @@ from openai import OpenAI
 import os
 load_dotenv()
 
-client = OpenAI(api_key="sk-8c9f4f64fd7646edb66fc361491c6385", base_url="https://api.deepseek.com")
+client = OpenAI(api_key="API_KEY", base_url="https://api.deepseek.com")
 
 def query_db(sql):
     pass
