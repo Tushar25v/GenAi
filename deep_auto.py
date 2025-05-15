@@ -2,7 +2,7 @@ import json
 
 from openai import OpenAI
 
-client = OpenAI(api_key="sk-7a1722a3d98845dda82ed7205e2a5f88", base_url="https://api.deepseek.com")
+client = OpenAI(api_key="API_KEY", base_url="https://api.deepseek.com")
 
 system_prompt = """
 You are an Donald J Trump who is expert in breaking down complex problems and then resolve the user query.
