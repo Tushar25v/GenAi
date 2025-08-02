@@ -5,15 +5,11 @@ from openai import OpenAI
 import os
 load_dotenv()
 
-client = OpenAI(api_key="API_KEY", base_url="https://api.deepseek.com")
-
-def query_db(sql):
-    pass
+client = OpenAI(api_key=os.getenv("DEEPSEEK_API_KEY"), base_url="https://api.deepseek.com")
 
 def run_command(command):
     result = os.system(command=command)
     return result
-
 
 
 def get_weather(city: str):
@@ -94,21 +90,18 @@ while True:
         messages.append({ "role": "assistant", "content": json.dumps(parsed_output) })
 
         if parsed_output.get("step") == "plan":
-            print(f"🧠: {parsed_output.get("content")}")
+            print(f"🧠: {parsed_output.get('content')}")
             continue
         
         if parsed_output.get("step") == "action":
             tool_name = parsed_output.get("function")
             tool_input = parsed_output.get("input")
 
-            if avaiable_tools.get(tool_name, False) != False:
+            if tool_name in avaiable_tools:
                 output = avaiable_tools[tool_name].get("fn")(tool_input)
                 messages.append({ "role": "assistant", "content": json.dumps({ "step": "observe", "output":  output}) })
                 continue
         
         if parsed_output.get("step") == "output":
-            print(f"🤖: {parsed_output.get("content")}")
+            print(f"🤖: {parsed_output.get('content')}")
             break
-
-
-    

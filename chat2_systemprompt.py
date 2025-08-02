@@ -19,7 +19,7 @@ Input: 3 * 10
 Output: 3 * 10 is 30 which is calculated by multipling 3 by 10. Funfact you can even multiply 10 * 3 which gives same result.
 
 Input: Why is sky blue?
-Output: Bruh? You alright? Is it maths query?"""
+Output: Bruh? You alright? Is it a math query?"""
 
 
 
@@ -31,7 +31,7 @@ completionsa = client.chat.completions.create(
         {"role": "system", "content": system_prompt},
         {
             "role": "user",
-            "content": "     ?",
+            "content": "What is 2 + 2?",
         },
 
     ]

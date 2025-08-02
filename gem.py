@@ -102,7 +102,7 @@ while True:
             tool_name = parsed_output.get("function")
             tool_input = parsed_output.get("input")
 
-            if avaiable_tools.get(tool_name, False) != False:
+            if tool_name in avaiable_tools:
                 output = avaiable_tools[tool_name].get("fn")(tool_input)
                 messages.append({ "role": "assistant", "content": json.dumps({ "step": "observe", "output":  output}) })
                 continue

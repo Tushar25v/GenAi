@@ -5,44 +5,38 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_qdrant import QdrantVectorStore
 from qdrant_client import QdrantClient
 from openai import OpenAI
+import os
+from dotenv import load_dotenv
 
-api_key = "API_KEY"
+load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
 
 file_path = Path(__file__).parent / "cheat_code.pdf"
 
 loader = PyPDFLoader(file_path=file_path)
 
-docs = loader.load()  # makes documents ... list of pages 
+docs = loader.load()
 
-#print(docs[0])   to see reding od pdf
-
-text_splitter = RecursiveCharacterTextSplitter(  # splitting into character is the dumbest thing 
-    chunk_size = 100,
-    chunk_overlap=50,
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200,
 )
 
 split_docs = text_splitter.split_documents(documents=docs)
 
-
-#print("Docs" ,len(docs))
-#print("split", len(split_docs))
-
 embedding = OpenAIEmbeddings(
     model="text-embedding-3-large",
-    api_key= api_key,
-
+    api_key=api_key,
 )
 
-
-'''vector_store = QdrantVectorStore.from_documents(
-    documents=[],
-    url="http://localhost:6333",
-    collection_name="learning_langchain",    # injection part
-     embedding=embedding
-)
-
-vector_store.add_documents(documents=split_docs)'''
-#print("injection complete")
+# Vector store setup for injection (uncomment when needed)
+# vector_store = QdrantVectorStore.from_documents(
+#     documents=[],
+#     url="http://localhost:6333",
+#     collection_name="learning_langchain",
+#     embedding=embedding
+# )
+# vector_store.add_documents(documents=split_docs)
 
 
 retriver = QdrantVectorStore.from_existing_collection(
@@ -55,13 +49,9 @@ relevent_chunk = retriver.similarity_search(
     query="What is variable scope ?"
 )
 
-
-#print("Relevant Chunks", relevent_chunk)
-
-
 system_prompt = f'''
-You r a great ai assistant helping coding related query
-Context : {relevent_chunk} Each chunk contains a page n and its page_content. Base all responses only and only on this information.
+You are a great AI assistant helping with coding related queries.
+Context: {relevent_chunk} Each chunk contains a page number and its page_content. Base all responses only on this information.
 '''
 
 client = OpenAI(api_key=api_key)

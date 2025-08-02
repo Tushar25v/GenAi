@@ -1,5 +1,10 @@
 from openai import OpenAI
-client = OpenAI(api_key="API_KEY", base_url="https://api.deepseek.com")
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+client = OpenAI(api_key=os.getenv("DEEPSEEK_API_KEY"), base_url="https://api.deepseek.com")
 
 # Round 1
 messages = [{"role": "user", "content": "9.11 and 9.8, which is greater?"}]
