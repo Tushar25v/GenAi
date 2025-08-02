@@ -1,13 +1,15 @@
 from mem0 import Memory
 from openai import OpenAI
+import os
+from dotenv import load_dotenv
 
-OPENAI_API_KEY = "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"
+load_dotenv()
 
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 QUADRANT_HOST = "localhost"
-
-NEO4J_URL="bolt://localhost:7687"
-NEO4J_USERNAME="neo4j"
-NEO4J_PASSWORD="reform-william-center-vibrate-press-5829"
+NEO4J_URL = "bolt://localhost:7687"
+NEO4J_USERNAME = "neo4j"
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "reform-william-center-vibrate-press-5829")
 
 config = {
     "version": "v1.1",
@@ -15,7 +17,7 @@ config = {
         "provider": "openai",
         "config": {"api_key": OPENAI_API_KEY, "model": "text-embedding-3-small"},
     },
-    "llm": {"provider": "openai", "config": {"api_key": OPENAI_API_KEY, "model": "gpt-4.1"}},
+    "llm": {"provider": "openai", "config": {"api_key": OPENAI_API_KEY, "model": "gpt-4o"}},
     "vector_store": {
         "provider": "qdrant",
         "config": {
@@ -34,9 +36,6 @@ openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
 def chat(message):
     mem_result = mem_client.search(query=message, user_id="t001")
-
-    print("mem_result", )
-
     memories = "\n".join([m["memory"] for m in mem_result.get("results")])
 
     print(f"\n\nMEMORY:\n\n{memories}\n\n")
@@ -58,7 +57,7 @@ def chat(message):
     ]
 
     result = openai_client.chat.completions.create(
-        model="gpt-4.1",
+        model="gpt-4o",
         messages=messages
     )
 
